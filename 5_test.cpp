@@ -83,7 +83,8 @@ void draw_bounding_box(Mat &image, float ymin, float xmin, float ymax,
 void draw_bounding_boxes(Mat &image, tensorflow::TTypes<float>::Flat &scores,
                          tensorflow::TTypes<float>::Flat &classes,
                          tensorflow::TTypes<float, 3>::Tensor &boxes,
-                         tensorflow::TTypes<float>::Flat &num_detections);
+                         tensorflow::TTypes<float>::Flat &num_detections,
+                         map<int, string> &labels_map);
 
 // Read a google protobuffer object label text file and create object
 // <class id, class name> map pairs for each possible class
@@ -183,7 +184,8 @@ int main() {
         outputs[0].flat_outer_dims<float, 3>();
 
     // Draw bounding boxes with class labels for detections
-    draw_bounding_boxes(image, scores, classes, boxes, num_detections);
+    draw_bounding_boxes(image, scores, classes, boxes, num_detections,
+                        labels_map);
 
     // Optionally save image
     if (save_output_images) {
@@ -387,7 +389,8 @@ void draw_bounding_box(Mat &image, float ymin, float xmin, float ymax,
 void draw_bounding_boxes(Mat &image, tensorflow::TTypes<float>::Flat &scores,
                          tensorflow::TTypes<float>::Flat &classes,
                          tensorflow::TTypes<float, 3>::Tensor &boxes,
-                         tensorflow::TTypes<float>::Flat &num_detections) {
+                         tensorflow::TTypes<float>::Flat &num_detections,
+                         map<int, string> &labels_map) {
   // Draw bounding boxes around detected objects
   // Python vis_util.visualize_boxes_and_labels_on_image_array
   // uses a default score threshold of 0.5 to select a box to draw
@@ -398,7 +401,7 @@ void draw_bounding_boxes(Mat &image, tensorflow::TTypes<float>::Flat &scores,
       float xmin = boxes(0, i, 1);
       float ymax = boxes(0, i, 2);
       float xmax = boxes(0, i, 3);
-      string label = "traffic_light";
+      string label = labels_map[int(classes(i))];
       draw_bounding_box(image, ymin, xmin, ymax, xmax, scores(i), label);
     }
   }
