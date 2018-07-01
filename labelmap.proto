@@ -1,0 +1,25 @@
+// See README.txt for information and build instructions.
+//
+// Note: START and END tags are used in comments to define sections used in
+// tutorials.  They are not part of the syntax for Protocol Buffers.
+//
+// To get an in-depth walkthrough of this file and the related examples, see:
+// https://developers.google.com/protocol-buffers/docs/tutorials
+
+// [START declaration]
+syntax = "proto3";
+package labelmap;
+
+// [END declaration]
+
+// [START messages]
+message Category {
+  int32 id = 1;  // Unique ID for class.
+  string name = 2; // Class name
+}
+
+// Our label maps file is just one of these.
+message ObjectClasses {
+  repeated Category item = 1;
+}
+// [END messages]
