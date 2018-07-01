@@ -88,7 +88,7 @@ make run
 as the compiled binary is provided (linux x86_64 system). If that fails then:
 
 make clean
-make 
+make
 make run
 
 You'll have to satisfy the dependencies listed in the Makefile otherwise follow one or more
