@@ -1,5 +1,5 @@
 # object-detection-inference-cpp
-Demo to run object detection suing a trained model using Tensorflow C++ API
+Demo to run object detection using a trained model using Tensorflow C++ API
 ------------------------------------------------------------------------------------------
 
 1) Objective: To develop C++ code to run obejct detection on a trained model using Tensorflow
